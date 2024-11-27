@@ -3,7 +3,6 @@ import App from "./App.vue";
 // import {tray} from "@tauri-apps/api";
 import {getVersion, getTauriVersion, getName} from '@tauri-apps/api/app';
 import {getCurrentWindow} from "@tauri-apps/api/window";
-import {ref} from "vue";
 import {EventName} from "@tauri-apps/api/event";
 
 const main = async () => {
@@ -21,9 +20,9 @@ const main = async () => {
     // });
     // console.log(_tray)
 
-    const currentWindow = ref(getCurrentWindow());
+    const currentWindow = getCurrentWindow();
 
-    currentWindow.value.listen('my-window-event', ({event, payload}: { event: EventName, payload: string }): void => {
+    currentWindow.listen('my-window-event', ({event, payload}: { event: EventName, payload: string }): void => {
         switch (payload) {
             case 'reload':
                 window.location.reload();
@@ -33,6 +32,24 @@ const main = async () => {
                 break;
         }
     });
+
+    const event_names: string[] = [
+        'tauri://move',
+        'tauri://resize',
+        'tauri://close-requested',
+    ];
+    event_names.forEach(event_name => {
+        currentWindow.listen(event_name, ({event, payload}) => {
+            if (event_name === 'tauri://close-requested') {
+                const do_close = confirm('Do you really want to close the window?');
+                if (do_close) {
+                    currentWindow.close();
+                }
+            } else {
+                console.log(event, payload);
+            }
+        });
+    })
 
     const app = createApp(App);
     app.provide("window", currentWindow);
