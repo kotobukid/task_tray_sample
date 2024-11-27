@@ -22,7 +22,7 @@ const main = async () => {
 
     const currentWindow = getCurrentWindow();
 
-    currentWindow.listen('my-window-event', ({event, payload}: { event: EventName, payload: string }): void => {
+    await currentWindow.listen('my-window-event', ({event, payload}: { event: EventName, payload: string }): void => {
         switch (payload) {
             case 'reload':
                 window.location.reload();
@@ -62,5 +62,6 @@ const main = async () => {
     app.provide("window", currentWindow);
     app.mount("#app");
 };
-main();
+
+main().then();
 
