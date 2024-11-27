@@ -1,28 +1,22 @@
-import {Ref} from "vue";
+import {image} from "@tauri-apps/api";
 
 const useImage = () => {
-    const parse = async (content: any, canvasRef: Ref<HTMLCanvasElement | null>) => {
-        if (content.rid) { // Check if content has rid property
-            // Use `rgba` method to get the image data and create a Blob
-            const buffer = await content.rgba(); // Assuming it returns a Uint8Array or similar binary data
-            const size = await content.size();
+    const parse = async (content: image.Image): Promise<ImageData> => {
+        return new Promise(async (resolve, reject) => {
 
-            if (canvasRef.value) {
-                const ctx = canvasRef.value.getContext('2d');
-                if (ctx) {
-                    // Create an ImageData object from the RGBA buffer
-                    const imageData = new ImageData(
-                        new Uint8ClampedArray(buffer),
-                        size.width,
-                        size.height
-                    );
-                    // Draw ImageData onto the canvas
-                    ctx.putImageData(imageData, 0, 0);
-                }
+            if (content.rid) { // Check if content has rid property
+                const buffer = await content.rgba();
+                const size = await content.size();
+                resolve(new ImageData(
+                    new Uint8ClampedArray(buffer),
+                    size.width,
+                    size.height
+                ));
+            } else {
+                console.error('The content is not of expected structure:', content);
+                reject();
             }
-        } else {
-            console.error('The content is not of expected structure:', content);
-        }
+        });
     }
 
     return {
