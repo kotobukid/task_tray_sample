@@ -17,7 +17,7 @@ console.log(current)
       button(@click="current.emit('my-window-event', 'AAA')") b-AAA
       button(@click="current.emit('my-window-event', 'BBB')") b-BBB
       button(@click="current.emit('my-window-event', 'reload')") reload
-      button(@click="current.emit('tauri://close-requested', '')") Close window
+      button(@click="current.emit('tauri://close-requested')") Close window
 </template>
 
 <style scoped lang="less">

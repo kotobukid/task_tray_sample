@@ -3,7 +3,7 @@ import App from "./App.vue";
 // import {tray} from "@tauri-apps/api";
 import {getVersion, getTauriVersion, getName} from '@tauri-apps/api/app';
 import {getCurrentWindow} from "@tauri-apps/api/window";
-import {EventName} from "@tauri-apps/api/event";
+import {EventName, UnlistenFn} from "@tauri-apps/api/event";
 
 const main = async () => {
     const appVersion = await getVersion();
@@ -36,20 +36,27 @@ const main = async () => {
     const event_names: string[] = [
         'tauri://move',
         'tauri://resize',
-        'tauri://close-requested',
+        // 'tauri://close-requested',
     ];
     event_names.forEach(event_name => {
-        currentWindow.listen(event_name, ({event, payload}) => {
-            if (event_name === 'tauri://close-requested') {
-                const do_close = confirm('Do you really want to close the window?');
-                if (do_close) {
-                    currentWindow.close();
-                }
-            } else {
-                console.log(event, payload);
-            }
+        currentWindow.listen(event_name, (event: any) => {
+            console.log(event);
         });
     })
+
+    const unlisten: UnlistenFn = await currentWindow.listen('tauri://close-requested', async (event: any) => {
+        if (event.event === 'tauri://close-requested') {
+            const do_close = confirm('Do you really want to close the window?');
+            if (!do_close) {
+                event.preventDefault();
+            } else {
+                unlisten();
+                await currentWindow.destroy();
+            }
+        } else {
+            console.log(event);
+        }
+    });
 
     const app = createApp(App);
     app.provide("window", currentWindow);
