@@ -10,7 +10,7 @@ const main = async () => {
     console.log({
         appVersion,
         tauriVersion,
-        name
+        name,
     });
 
     // const _tray = await tray.TrayIcon.new({
@@ -20,5 +20,5 @@ const main = async () => {
 
     createApp(App).mount("#app");
 };
-await main();
+main();
 
