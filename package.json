@@ -12,6 +12,7 @@
   "dependencies": {
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-shell": "^2",
+    "@tauri-apps/plugin-store": "^2.1.0",
     "less": "^4.2.1",
     "pug": "^3.0.3",
     "typescript": "^5.6.3",

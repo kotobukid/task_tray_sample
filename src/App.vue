@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { invoke } from "@tauri-apps/api/core";
 import IconPreview from "./components/IconPreview.vue";
 import WindowController from "./components/WindowController.vue";
+import StoreFront from "./components/StoreFront.vue";
 const greetMsg = ref("");
 const name = ref("");
 
@@ -14,6 +15,7 @@ async function greet() {
 
 <template>
   <main class="container">
+    <StoreFront />
     <IconPreview />
     <WindowController />
     <form class="row" @submit.prevent="greet">
