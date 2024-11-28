@@ -4,6 +4,7 @@ import { invoke } from "@tauri-apps/api/core";
 import IconPreview from "./components/IconPreview.vue";
 import WindowController from "./components/WindowController.vue";
 import StoreFront from "./components/StoreFront.vue";
+import PathList from "./components/PathList.vue";
 const greetMsg = ref("");
 const name = ref("");
 
@@ -15,6 +16,7 @@ async function greet() {
 
 <template>
   <main class="container">
+    <PathList />
     <StoreFront />
     <IconPreview />
     <WindowController />

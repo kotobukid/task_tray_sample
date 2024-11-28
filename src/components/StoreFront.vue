@@ -6,9 +6,6 @@ import {ref, onMounted} from "vue";
 const store = ref<LazyStore | null>(null);
 
 onMounted(async () => {
-  const dir = await dataDir();
-  console.log(dir)
-
   store.value = new LazyStore('store.json');
 
   const key0 = await store.value!.get('key0');

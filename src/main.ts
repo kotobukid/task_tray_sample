@@ -33,16 +33,16 @@ const main = async () => {
         }
     });
 
-    const event_names: string[] = [
-        'tauri://move',
-        'tauri://resize',
-        // 'tauri://close-requested',
-    ];
-    event_names.forEach(event_name => {
-        currentWindow.listen(event_name, (event: any) => {
-            console.log(event);
-        });
-    })
+    // const event_names: string[] = [
+    //     'tauri://move',
+    //     'tauri://resize',
+    //     // 'tauri://close-requested',
+    // ];
+    // event_names.forEach(event_name => {
+    //     currentWindow.listen(event_name, (event: any) => {
+    //         console.log(event);
+    //     });
+    // })
 
     const unlisten: UnlistenFn = await currentWindow.listen('tauri://close-requested', async (event: any) => {
         if (event.event === 'tauri://close-requested') {
