@@ -22,13 +22,13 @@ const main = async () => {
 
     const currentWindow = getCurrentWindow();
 
-    await currentWindow.listen('my-window-event', ({event, payload}: { event: EventName, payload: string }): void => {
+    await currentWindow.listen('my-window-event', ({payload}: { event: EventName, payload: string }): void => {
         switch (payload) {
             case 'reload':
                 window.location.reload();
                 break;
             default:
-                console.log(event, payload);
+                // console.log(event, payload);
                 break;
         }
     });
