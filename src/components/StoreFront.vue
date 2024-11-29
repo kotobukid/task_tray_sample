@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import { dataDir } from '@tauri-apps/api/path';
-import { LazyStore } from '@tauri-apps/plugin-store';
+import {dataDir} from '@tauri-apps/api/path';
+import {LazyStore} from '@tauri-apps/plugin-store';
 import {ref, onMounted} from "vue";
 
 const store = ref<LazyStore | null>(null);
 
 onMounted(async () => {
   store.value = new LazyStore('store.json');
-
-  const key0 = await store.value!.get('key0');
-  console.log(key0);
+  // const key0 = await store.value!.get('key0');
+  // console.log(key0);
 });
 
 const set0 = async () => {

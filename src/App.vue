@@ -5,6 +5,7 @@ import IconPreview from "./components/IconPreview.vue";
 import WindowController from "./components/WindowController.vue";
 import StoreFront from "./components/StoreFront.vue";
 import PathList from "./components/PathList.vue";
+import AutoStartController from "./components/AutoStartController.vue";
 const greetMsg = ref("");
 const name = ref("");
 
@@ -16,15 +17,23 @@ async function greet() {
 
 <template>
   <main class="container">
-    <PathList />
-    <StoreFront />
-    <IconPreview />
-    <WindowController />
-    <form class="row" @submit.prevent="greet">
-      <input id="greet-input" v-model="name" placeholder="Enter a name..." />
-      <button type="submit">Greet</button>
-    </form>
-    <p>{{ greetMsg }}</p>
+    <Suspense>
+      <template #default>
+        <div>
+          <AutoStartController />
+          <PathList />
+          <StoreFront />
+          <IconPreview />
+          <WindowController />
+          <form class="row" @submit.prevent="greet">
+            <input id="greet-input" v-model="name" placeholder="Enter a name..." />
+            <button type="submit">Greet</button>
+          </form>
+          <p>{{ greetMsg }}</p>
+        </div>
+      </template>
+      <template #fallback>Loading...</template>
+    </Suspense>
   </main>
 </template>
 
