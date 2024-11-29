@@ -6,6 +6,7 @@ import WindowController from "./components/WindowController.vue";
 import StoreFront from "./components/StoreFront.vue";
 import PathList from "./components/PathList.vue";
 import AutoStartController from "./components/AutoStartController.vue";
+import PingController from "./components/PingController.vue";
 const greetMsg = ref("");
 const name = ref("");
 
@@ -20,6 +21,7 @@ async function greet() {
     <Suspense>
       <template #default>
         <div>
+          <PingController />
           <AutoStartController />
           <PathList />
           <StoreFront />

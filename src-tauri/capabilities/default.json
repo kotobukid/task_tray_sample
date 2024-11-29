@@ -11,6 +11,7 @@
     "shell:allow-open",
     "core:window:allow-close",
     "core:window:allow-destroy",
-    "store:default"
+    "store:default",
+    "hoge:allow-ping"
   ]
 }
